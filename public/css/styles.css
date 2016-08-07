@@ -12,3 +12,6 @@ h1 {
 .messages p {
 	margin: 6px 0;
 }
+.chat{
+	border:solid 2px black;
+}

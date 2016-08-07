@@ -5,6 +5,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+
+
 app.use(express.static(__dirname + '/public'));
 
 var clientInfo = {};
@@ -32,6 +34,11 @@ function sendCurrentUsers (socket) {
 		timestamp: moment().valueOf()
 	});
 }
+
+
+// io start
+
+
 
 io.on('connection', function (socket) {
 	console.log('User connected via socket.io!');
