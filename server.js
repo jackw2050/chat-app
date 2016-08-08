@@ -50,7 +50,7 @@ io.on('connection', function (socket) {
 			socket.leave(userData.room);
 			io.to(userData.room).emit('message', {
 				name: 'System',
-				text: userData.name + ' has left!',
+				text: userData.name + ' has left the room.',
 				timestamp: moment().valueOf()
 			});
 			delete clientInfo[socket.id];
@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
 		socket.join(req.room);
 		socket.broadcast.to(req.room).emit('message', {
 			name: 'System',
-			text: req.name + ' has joined!',
+			text: req.name + ' has entered the room.',
 			timestamp: moment().valueOf()
 		});
 	});
