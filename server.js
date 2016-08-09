@@ -5,7 +5,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
+var verboseServer = false; 
 
 app.use(express.static(__dirname + '/public'));
 
@@ -41,11 +41,11 @@ function sendCurrentUsers (socket) {
 
 
 io.on('connection', function (socket) {
-	console.log('User connected via socket.io!');
+	verboseServer && console.log('User connected via socket.io!');
 
 	socket.on('disconnect', function () {
 		var userData = clientInfo[socket.id];
-
+		verboseServer && console.log("disconnect");
 		if (typeof userData !== 'undefined') {
 			socket.leave(userData.room);
 			io.to(userData.room).emit('message', {
@@ -68,8 +68,7 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('message', function (message) {
-		console.log('Message received: ' + message.text);
-
+		verboseServer && console.log('Message received: ' + message.text);
 		if (message.text === '@currentUsers') {
 			sendCurrentUsers(socket);
 		} else {
@@ -88,5 +87,8 @@ io.on('connection', function (socket) {
 });
 
 http.listen(PORT, function () {
-	console.log('Server started!');
+	verboseServer && console.log("ChatServer Started"); 
 });
+
+
+
